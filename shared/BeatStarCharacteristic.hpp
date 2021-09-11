@@ -19,8 +19,9 @@ namespace SDC_wrapper {
             /// wrapping a characteristic
             song_data_core::BeatStarCharacteristics characteristic = song_data_core::BeatStarCharacteristics::Unknown;
             BeatStarCharacteristic(song_data_core::BeatStarCharacteristics* char_) : characteristic(*char_) {};
-            BeatStarCharacteristic(const song_data_core::BeatStarCharacteristics& char_) : characteristic(char_) {};
             BeatStarCharacteristic(GlobalNamespace::BeatmapCharacteristicSO* char_) : characteristic(BeatmapCharacteristicToBeatStarCharacteristic(char_)) {};
+
+            constexpr BeatStarCharacteristic(const song_data_core::BeatStarCharacteristics& char_) : characteristic(char_) {};
             BeatStarCharacteristic(std::string_view serializedName) : characteristic(StringToBeatStarCharacteristic(serializedName)) {};
             
             /// @brief implicit conversion operator from this type to what song_data_core uses
@@ -29,7 +30,7 @@ namespace SDC_wrapper {
 
             /// @brief gets the string for the wrapped characteristic
             /// @return string serialized Name
-            inline std::string ToString() const
+            inline std::string_view ToString() const
             {
                 return BeatStarCharacteristicToString(characteristic);
             }
@@ -53,7 +54,7 @@ namespace SDC_wrapper {
             /// @brief Gets the string that describes the characteristic
             /// @param characteristic the characteristic to check
             /// @return string serialized names
-            static std::string BeatStarCharacteristicToString(const song_data_core::BeatStarCharacteristics& characteristic)
+            static std::string_view BeatStarCharacteristicToString(const song_data_core::BeatStarCharacteristics& characteristic)
             {
                 switch(characteristic)
                 {
@@ -73,16 +74,21 @@ namespace SDC_wrapper {
             /// @return song_data_core::BeatStarCharacteristic of the name, or Unknown for invalid
             static song_data_core::BeatStarCharacteristics StringToBeatStarCharacteristics(std::string_view serializedName)
             {
-                switch(tolower(serializedName.data()[0]))
+                switch(serializedName.data()[0])
                 {
-                    case 's': return song_data_core::BeatStarCharacteristics::Standard;
-                    case 'o': return song_data_core::BeatStarCharacteristics::OneSaber;
-                    case 'n': return song_data_core::BeatStarCharacteristics::NoArrows;
-                    case 'd':
+                    case 's': [[fallthrough]];
+                    case 'S': return song_data_core::BeatStarCharacteristics::Standard;
+                    case 'o': [[fallthrough]];
+                    case 'O': return song_data_core::BeatStarCharacteristics::OneSaber;
+                    case 'n': [[fallthrough]];
+                    case 'N': return song_data_core::BeatStarCharacteristics::NoArrows;
+                    case 'd': [[fallthrough]];
+                    case 'D':
                         if (serializedName.data()[6] == '9') return song_data_core::BeatStarCharacteristics::Degree90;
                         else return song_data_core::BeatStarCharacteristics::Degree360;
-                    case 'l': {
-                        if (tolower(serializedName.data()[1]) == 'a') return song_data_core::BeatStarCharacteristics::Lawless;
+                    case 'l': [[fallthrough]];
+                    case 'L': {
+                        if (serializedName.data()[1] == 'a' || serializedName.data()[1] == 'A') return song_data_core::BeatStarCharacteristics::Lawless;
                         else return song_data_core::BeatStarCharacteristics::Lightshow;
                     }
                     default: return song_data_core::BeatStarCharacteristics::Unknown;
@@ -96,5 +102,32 @@ namespace SDC_wrapper {
             {
                 return StringToBeatStarCharacteristics(serializedName);
             }
+
+            // some constexpr automatic wrapper makers, could be useful
+
+            /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::Unknown
+            static constexpr BeatStarCharacteristic Unknown() { return song_data_core::BeatStarCharacteristics::Unknown; };
+            
+            /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::Standard
+            static constexpr BeatStarCharacteristic Standard() { return song_data_core::BeatStarCharacteristics::Standard; };
+            
+            /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::OneSaber
+            static constexpr BeatStarCharacteristic OneSaber() { return song_data_core::BeatStarCharacteristics::OneSaber; };
+            
+            /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::NoArrows
+            static constexpr BeatStarCharacteristic NoArrows() { return song_data_core::BeatStarCharacteristics::NoArrows; };
+            
+            /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::Lightshow
+            static constexpr BeatStarCharacteristic Lightshow() { return song_data_core::BeatStarCharacteristics::Lightshow; };
+            
+            /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::Degree90
+            static constexpr BeatStarCharacteristic Degree90() { return song_data_core::BeatStarCharacteristics::Degree90; };
+            
+            /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::Degree360
+            static constexpr BeatStarCharacteristic Degree360() { return song_data_core::BeatStarCharacteristics::Degree360; };
+            
+            /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::Lawless
+            static constexpr BeatStarCharacteristic Lawless() { return song_data_core::BeatStarCharacteristics::Lawless; };
     };
+    
 }
