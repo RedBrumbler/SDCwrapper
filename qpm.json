@@ -1,0 +1,24 @@
+{
+  "sharedDir": "shared",
+  "dependenciesDir": "extern",
+  "info": {
+    "name": "sdc-wrapper",
+    "id": "sdc-wrapper",
+    "version": "0.1.0",
+    "url": null,
+    "additionalData": {}
+  },
+  "dependencies": [
+    {
+      "id": "songdatacore",
+      "versionRange": "*",
+      "additionalData": {}
+    },
+    {
+      "id": "beatsaber-hook",
+      "versionRange": "*",
+      "additionalData": {}
+    }
+  ],
+  "additionalData": {}
+}
