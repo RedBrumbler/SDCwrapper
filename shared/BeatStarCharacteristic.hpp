@@ -48,7 +48,11 @@ namespace SDC_wrapper {
             /// @return string serialized name
             static std::string BeatmapCharacteristicToString(GlobalNamespace::BeatmapCharacteristicSO* char_)
             {
+                #if defined __has_include && __has_include("GlobalNamespace/BeatmapCharacteristicSO.hpp")
+                return to_utf8(csstrtostr(char_->get_serializedName()));
+                #else
                 return to_utf8(csstrtostr(CRASH_UNLESS(il2cpp_utils::RunMethod<Il2CppString*>(char_, "get_serializedName"))));
+                #endif
             }
 
             /// @brief Gets the string that describes the characteristic
@@ -129,5 +133,5 @@ namespace SDC_wrapper {
             /// @brief constexpr returns a wrapped song_data_core::BeatStarCharacteristics::Lawless
             static constexpr BeatStarCharacteristic Lawless() { return song_data_core::BeatStarCharacteristics::Lawless; };
     };
-    
+
 }
