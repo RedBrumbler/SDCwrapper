@@ -38,7 +38,7 @@ LOCAL_SRC_FILES := extern/libmodloader.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := sdcwrapper
+LOCAL_MODULE := sdc-wrapper_0_1_1
 LOCAL_SRC_FILES += $(call rwildcard,src/**,*.cpp)
 LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook,*.cpp)
 LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook,*.c)
@@ -46,7 +46,7 @@ LOCAL_SHARED_LIBRARIES += android-libsong_data_core_rust
 LOCAL_SHARED_LIBRARIES += beatsaber-hook_2_3_0
 LOCAL_SHARED_LIBRARIES += modloader
 LOCAL_LDLIBS += -llog -lz
-LOCAL_CFLAGS += -DID='"SDCWrapper"' -DVERSION='"0.1.0"' -Wno-inaccessible-base -O2
+LOCAL_CFLAGS += -DID='"SDCWrapper"' -DVERSION='"0.1.1"' -Wno-inaccessible-base -O2
 LOCAL_C_INCLUDES += ./include ./src ./extern ./extern/codegen/include ./extern/libil2cpp/il2cpp/libil2cpp ./shared
 LOCAL_CPP_FEATURES += rtti exceptions
 include $(BUILD_SHARED_LIBRARY)
