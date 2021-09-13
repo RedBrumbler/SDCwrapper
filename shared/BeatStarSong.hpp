@@ -20,6 +20,22 @@ namespace SDC_wrapper {
                 return reinterpret_cast<const SDC_wrapper::BeatStarSong*>(song_data_core::Beatstar_GetSong(hash.data()));
             }
 
+            /// @brief Gets all songs in a vector
+            /// @return vector const BeatStarSong*
+            static std::vector<const BeatStarSong*> GetAllSongs()
+            {
+                auto db = song_data_core::Beatstar_RetrieveDatabase();
+                long long len = song_data_core::BeatStarDataFile_map_SongsLen(db);
+                std::vector<const BeatStarSong*> res(len);
+                for (long long i = 0; i < len; i++)
+                {
+                    auto key = song_data_core::BeatStarDataFile_map_SongsGetKey(db, i);
+                    res[i] = reinterpret_cast<const SDC_wrapper::BeatStarSong*>(song_data_core::BeatStarDataFile_map_SongsGet(db, key));
+                }
+
+                return res;
+            }
+
             /// @brief gets difficulty at index
             /// @param idx the index to get at
             /// @return const BeatStarSongDifficultyStats*
