@@ -39,7 +39,7 @@ namespace SDC_wrapper {
             /// @brief gets difficulty at index
             /// @param idx the index to get at
             /// @return const BeatStarSongDifficultyStats*
-            inline const BeatStarSongDifficultyStats* GetDifficulty(int idx) const
+            [[nodiscard]] inline const BeatStarSongDifficultyStats* GetDifficulty(int idx) const
             {
                 return reinterpret_cast<const BeatStarSongDifficultyStats*>(song_data_core::BeatStarSong_DiffGet(this, idx));
             }
@@ -48,7 +48,7 @@ namespace SDC_wrapper {
             /// @param characteristic the characteristic to check on
             /// @param idx the difficulty for characteristic idx you want
             /// @return const BeatStarSongDifficultyStats*
-            const BeatStarSongDifficultyStats* GetDifficulty(const song_data_core::BeatStarCharacteristics& characteristic, int idx) const
+            [[nodiscard]] const BeatStarSongDifficultyStats* GetDifficulty(const song_data_core::BeatStarCharacteristics& characteristic, int idx) const
             {
                 const char* key = song_data_core::BeatStarSong_map_Characteristics_DifficultyStatsGetStrKey(this, characteristic, idx);
                 return reinterpret_cast<const BeatStarSongDifficultyStats*>(song_data_core::BeatStarSong_map_Characteristics_DifficultyStatsGet(this, characteristic, key));
@@ -58,7 +58,7 @@ namespace SDC_wrapper {
             /// @param characteristic the characteristic to check on
             /// @param idx the difficulty for characteristic idx you want
             /// @return const BeatStarSongDifficultyStats*
-            inline const BeatStarSongDifficultyStats* GetDifficulty(const BeatStarCharacteristic& characteristic, int idx) const
+            [[nodiscard]] inline const BeatStarSongDifficultyStats* GetDifficulty(const BeatStarCharacteristic& characteristic, int idx) const
             {
                 return GetDifficulty(characteristic.characteristic, idx);
             }
@@ -67,7 +67,7 @@ namespace SDC_wrapper {
             /// @param characteristic the characteristic to check on
             /// @param name the name of the difficulty to check for
             /// @return const BeatStarSongDifficultyStats* or nullptr for not found
-            const BeatStarSongDifficultyStats* GetDifficulty(const song_data_core::BeatStarCharacteristics& characteristic, std::string_view name) const
+            [[nodiscard]] const BeatStarSongDifficultyStats* GetDifficulty(const song_data_core::BeatStarCharacteristics& characteristic, std::string_view name) const
             {
                 int charLen = song_data_core::BeatStarSong_map_Characteristics_DifficultyStatsLen(this, characteristic);
                 for (int i = 0; i < charLen; i++)
@@ -83,14 +83,14 @@ namespace SDC_wrapper {
             /// @param characteristic the characteristic to check on
             /// @param name the name of the difficulty to check for
             /// @return const BeatStarSongDifficultyStats* or nullptr for not found
-            inline const BeatStarSongDifficultyStats* GetDifficulty(const BeatStarCharacteristic& characteristic, std::string_view name) const
+            [[nodiscard]] inline const BeatStarSongDifficultyStats* GetDifficulty(const BeatStarCharacteristic& characteristic, std::string_view name) const
             {
                 return GetDifficulty(characteristic.characteristic, name);
             }
 
             /// @brief gets the entire difficulty vector for all characteristics
             /// @return vector const BeatStarSongDifficultyStats* of every diff
-            std::vector<const BeatStarSongDifficultyStats*> GetDifficultyVector() const
+            [[nodiscard]] std::vector<const BeatStarSongDifficultyStats*> GetDifficultyVector() const
             {
                 int difflen = song_data_core::BeatStarSong_DiffLen(this);
                 std::vector<const BeatStarSongDifficultyStats*> result(difflen);
@@ -104,7 +104,7 @@ namespace SDC_wrapper {
 
             /// @brief gets the max NJS for the song
             /// @return highest NJS on all diffs
-            float GetMaxNJS() const
+            [[nodiscard]] float GetMaxNJS() const
             {
                 auto diffVec = GetDifficultyVector();
                 float max = 0.0f;
@@ -117,7 +117,7 @@ namespace SDC_wrapper {
 
             /// @brief gets the max pp for the song
             /// @return highest pp on all diffs
-            double GetMaxPpValue() const
+            [[nodiscard]] double GetMaxPpValue() const
             {
                 auto diffVec = GetDifficultyVector();
                 double max = 0.0f;
@@ -131,7 +131,7 @@ namespace SDC_wrapper {
 
             /// @brief gets the max star value for the song
             /// @return highest star value on all diffs
-            double GetMaxStarValue() const
+            [[nodiscard]] double GetMaxStarValue() const
             {
                 auto diffVec = GetDifficultyVector();
                 double max = 0.0f;
@@ -144,43 +144,43 @@ namespace SDC_wrapper {
 
             /// @brief Gets the rating for the song
             /// @return float song rating
-            inline float GetRating() const
+            [[nodiscard]] inline float GetRating() const
             {
                 return song_data_core::BeatStarSong_rating(this);
             }
 
             /// @brief gets the name as a string view
-            inline const std::string_view GetName() const
+            [[nodiscard]] inline const std::string_view GetName() const
             {
                 return song_name.string_data;
             }
 
             /// @brief gets the subname as a string view
-            inline const std::string_view GetSubName() const
+            [[nodiscard]] inline const std::string_view GetSubName() const
             {
                 return song_sub_name.string_data;
             }
 
             /// @brief gets the songauthor as a string view
-            inline const std::string_view GetSongAuthor() const
+            [[nodiscard]] inline const std::string_view GetSongAuthor() const
             {
                 return song_author_name.string_data;
             }
 
             /// @brief gets the mapauthor as a string view
-            inline const std::string_view GetAuthor() const
+            [[nodiscard]] inline const std::string_view GetAuthor() const
             {
                 return level_author_name.string_data;
             }
 
             /// @brief gets the uploaded string as a string view
-            inline const std::string_view GetUploaded() const
+            [[nodiscard]] inline const std::string_view GetUploaded() const
             {
                 return uploaded.string_data;
             }
 
             /// @brief gets the hash as a string view
-            inline const std::string_view GetHash() const
+            [[nodiscard]] inline const std::string_view GetHash() const
             {
                 return hash.string_data;
             }
