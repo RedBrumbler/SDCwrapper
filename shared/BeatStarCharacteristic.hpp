@@ -2,6 +2,7 @@
 
 #include "songdatacore/shared/bindings.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/shared/utils/typedefs-string.hpp"
 #include <string>
 
 #if defined __has_include && __has_include("GlobalNamespace/BeatmapCharacteristicSO.hpp")

@@ -1,57 +1,23 @@
-param($p1)
+Param(
+    [Parameter(Mandatory=$false)]
+    [Switch]$clean
+)
 
-$NDKPath = Get-Content $PSScriptRoot/ndkpath.txt
-
-$buildScript = "$NDKPath/build/ndk-build"
-
-$OS = $PSVersionTable.OS
-if ($OS)
+# if user specified clean, remove all build files
+if ($clean.IsPresent)
 {
-    $windows = $OS.Contains("Windows")
-}
-else
-{
-    $windows = 'True'
+    if (Test-Path -Path "build")
+    {
+        remove-item build -R
+    }
 }
 
-# when core, or when on windows we want to add .cmd to the end
-if ((-not ($PSVersionTable.PSEdition -eq "Core")) -or $windows) {
-    $buildScript += ".cmd"
-}
-$coreCount = 0
-#get amount of processors
-# if on a windows system
-if ($windows)
+if (($clean.IsPresent) -or (-not (Test-Path -Path "build")))
 {
-    $prop = WMIC CPU Get NumberOfCores 
-    
-    $coreCount = $prop.split('\n')[2]
-    $coreCount = $coreCount.Trim()
-}
-# if on a linux system
-else
-{
-    $coreCount = & nproc
-}
-# if all fails, just assume 4
-if (-not $coreCount)
-{
-    echo "Couldn't get core count, assuming 4"
-    $coreCount = 4
+    new-item -Path build -ItemType Directory
 }
 
-$msg = "Building with " + $coreCount + " Cores!"
-echo $msg
-if ($p1 -eq "clean")
-{
-    echo "Removing obj dir for clean build"
-    remove-item ./obj -Recurse
-}
+& cmake -G "Ninja" -DCMAKE_BUILD_TYPE="RelWithDebInfo" . -B build 
+& cmake --build ./build
 
-& $buildScript NDK_PROJECT_PATH=$PSScriptRoot APP_BUILD_SCRIPT=$PSScriptRoot/Android.mk NDK_APPLICATION_MK=$PSScriptRoot/Application.mk -j $coreCount -Oline
-echo "Build Finished!"
-if (-not ($LastExitCode -eq 0)) {
-    $msg = "exit code " + $LastExitCode
-    echo $msg
-    exit $LastExitCode
-}
+exit $LastExitCode
