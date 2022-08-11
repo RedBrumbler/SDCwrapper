@@ -142,6 +142,19 @@ namespace SDC_wrapper {
                 return max;
             }
 
+            /// @brief gets the min star value for the song
+            /// @return lowest star value on all diffs
+            double GetMinStarValue() const
+            {
+                auto diffVec = GetDifficultyVector();
+                double min = -1.0f;
+                for (auto diff : diffVec) 
+                {
+                    if (min < 0 || diff->stars < min) min = diff->stars;
+                }
+                return min;
+            }
+
             /// @brief Gets the rating for the song
             /// @return float song rating
             inline float GetRating() const

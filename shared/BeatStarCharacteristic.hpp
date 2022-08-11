@@ -49,9 +49,9 @@ namespace SDC_wrapper {
             static std::string BeatmapCharacteristicToString(GlobalNamespace::BeatmapCharacteristicSO* char_)
             {
                 #if defined __has_include && __has_include("GlobalNamespace/BeatmapCharacteristicSO.hpp")
-                return to_utf8(csstrtostr(char_->get_serializedName()));
+                return char_->get_serializedName();
                 #else
-                return to_utf8(csstrtostr(CRASH_UNLESS(il2cpp_utils::RunMethod<Il2CppString*>(char_, "get_serializedName"))));
+                return CRASH_UNLESS(il2cpp_utils::RunMethod<StringW>(char_, "get_serializedName"));
                 #endif
             }
 
