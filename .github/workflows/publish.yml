@@ -64,7 +64,7 @@ jobs:
       
     - name: QPM Edit Version
       run: |
-        ./QPM/QPM package edit version "${{ steps.get_tag_version.outputs.VERSION }}"
+        ./QPM/qpm-rust package edit version "${{ steps.get_tag_version.outputs.VERSION }}"
         
     - name: Build
       run: |
@@ -120,4 +120,4 @@ jobs:
         git push --tags --force
         
     - name: QPM Publish
-      run: ./QPM/QPM publish "${{ secrets.QPM_KEY }}"
+      run: ./QPM/qpm-rust publish "${{ secrets.QPM_KEY }}"
