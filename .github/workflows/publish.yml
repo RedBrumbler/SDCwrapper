@@ -64,7 +64,7 @@ jobs:
       
     - name: QPM Edit Version
       run: |
-        ./QPM/qpm-rust package edit version "${{ steps.get_tag_version.outputs.VERSION }}"
+        ./QPM/qpm-rust package edit --version "${{ steps.get_tag_version.outputs.VERSION }}"
         
     - name: Build
       run: |
