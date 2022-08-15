@@ -1,6 +1,6 @@
 #pragma once
 
-#include "songdatacore/shared/bindings.hpp"
+#include "songdatacore/shared/patched_bindings.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "beatsaber-hook/shared/utils/typedefs-string.hpp"
 #include <string>

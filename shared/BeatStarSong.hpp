@@ -1,6 +1,6 @@
 #pragma once
 
-#include "songdatacore/shared/bindings.hpp"
+#include "songdatacore/shared/patched_bindings.hpp"
 #include "BeatStarSongDifficultyStats.hpp"
 #include "BeatStarCharacteristic.hpp"
 #include <string_view>
