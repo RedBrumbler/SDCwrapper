@@ -150,7 +150,7 @@ namespace SDC_wrapper {
                 double min = -1.0f;
                 for (auto diff : diffVec) 
                 {
-                    if (min < 0 || diff->stars < min) min = diff->stars;
+                    if (diff->stars > 0 && (min < 0 || diff->stars < min)) min = diff->stars;
                 }
                 return min;
             }
