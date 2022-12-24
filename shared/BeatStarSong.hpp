@@ -22,9 +22,13 @@ namespace SDC_wrapper {
 
             /// @brief Gets all songs in a vector
             /// @return vector const BeatStarSong*
+            /// @throws std::runtime_error if database failed to parse or failed to download
             static std::vector<const BeatStarSong*> GetAllSongs()
             {
                 auto db = song_data_core::Beatstar_RetrieveDatabase();
+                if (db == nullptr) {
+                    throw std::runtime_error("Database was nullptr, do you have internet?");
+                }
                 long long len = song_data_core::BeatStarDataFile_map_SongsLen(db);
                 std::vector<const BeatStarSong*> res(len);
                 for (long long i = 0; i < len; i++)
