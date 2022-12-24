@@ -23,7 +23,7 @@ namespace SDC_wrapper {
 
             /// @brief Gets all songs in a vector
             /// @return vector const BeatStarSong*
-            /// @throws std::runtime_error if database failed to parse or failed to download
+            /// @throw std::runtime_error if database failed to parse or failed to download
             static std::vector<const BeatStarSong*> GetAllSongs()
             {
                 auto db = song_data_core::Beatstar_RetrieveDatabase();
