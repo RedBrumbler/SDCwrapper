@@ -5,6 +5,7 @@
 #include "BeatStarCharacteristic.hpp"
 #include <string_view>
 #include<vector>
+#include <exception>
 
 constexpr const int beatsaverEpoch = 0;
 
