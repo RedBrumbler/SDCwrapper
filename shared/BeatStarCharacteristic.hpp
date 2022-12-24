@@ -31,7 +31,7 @@ namespace SDC_wrapper {
 
             /// @brief gets the string for the wrapped characteristic
             /// @return string serialized Name
-            inline std::string_view ToString() const
+            [[nodiscard]] inline std::string_view ToString() const
             {
                 return BeatStarCharacteristicToString(characteristic);
             }
@@ -79,7 +79,7 @@ namespace SDC_wrapper {
             /// @return song_data_core::BeatStarCharacteristic of the name, or Unknown for invalid
             static song_data_core::BeatStarCharacteristics StringToBeatStarCharacteristics(std::string_view serializedName)
             {
-                switch(serializedName.data()[0])
+                switch(serializedName[0])
                 {
                     case 's': [[fallthrough]];
                     case 'S': return song_data_core::BeatStarCharacteristics::Standard;
@@ -89,11 +89,11 @@ namespace SDC_wrapper {
                     case 'N': return song_data_core::BeatStarCharacteristics::NoArrows;
                     case 'd': [[fallthrough]];
                     case 'D':
-                        if (serializedName.data()[6] == '9') return song_data_core::BeatStarCharacteristics::Degree90;
+                        if (serializedName[6] == '9') return song_data_core::BeatStarCharacteristics::Degree90;
                         else return song_data_core::BeatStarCharacteristics::Degree360;
                     case 'l': [[fallthrough]];
                     case 'L': {
-                        if (serializedName.data()[1] == 'a' || serializedName.data()[1] == 'A') return song_data_core::BeatStarCharacteristics::Lawless;
+                        if (serializedName[1] == 'a' || serializedName[1] == 'A') return song_data_core::BeatStarCharacteristics::Lawless;
                         else return song_data_core::BeatStarCharacteristics::Lightshow;
                     }
                     default: return song_data_core::BeatStarCharacteristics::Unknown;
